@@ -1,13 +1,16 @@
 package com.marianhello.bgloc.data;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.util.TimeUtils;
+
+import androidx.core.util.TimeUtils;
 
 import com.marianhello.bgloc.data.sqlite.SQLiteLocationContract;
 import com.marianhello.bgloc.data.sqlite.SQLiteLocationContract.LocationEntry;
@@ -79,7 +82,7 @@ public class BackgroundLocation implements Parcelable {
 
     /**
      * Construct a new Location object that is copied from an existing one.
-     * @param location
+     * @param l
      */
     public BackgroundLocation(BackgroundLocation l) {
         locationId = l.locationId;
@@ -284,7 +287,7 @@ public class BackgroundLocation implements Parcelable {
 
     /**
      * Sets batch start time
-     * @param batch run time in milliseconds
+     * @param batchStartMillis run time in milliseconds
      */
     public void setBatchStartMillis(Long batchStartMillis) {
         this.batchStartMillis = batchStartMillis;
@@ -395,7 +398,7 @@ public class BackgroundLocation implements Parcelable {
     /**
      * Set the time of this fix, in elapsed real-time since system boot.
      *
-     * @param time elapsed real-time of fix, in nanoseconds since system boot.
+     * @param elapsedRealtimeNanos elapsed real-time of fix, in nanoseconds since system boot.
      */
     public void setElapsedRealtimeNanos(long elapsedRealtimeNanos) {
         this.elapsedRealtimeNanos = elapsedRealtimeNanos;
@@ -801,6 +804,7 @@ public class BackgroundLocation implements Parcelable {
         return provider1.equals(provider2);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public String toString () {
         StringBuilder s = new StringBuilder();
